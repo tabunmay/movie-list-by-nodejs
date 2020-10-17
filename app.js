@@ -24,6 +24,15 @@ app.get('/', (req, res) =>{
   res.render('index', { movies: movieList.results })
 })
 
+//  設定searchbar路由
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  const movies = movieList.results.filter(movie => {
+    return movie.title.toLowerCase().includes(keyword.toLowerCase())
+  })
+  res.render('index', { movies: movies, keyword: keyword })  
+})
+
 // 設定show路由
 app.get('/movies/:movie_id', (req, res) => {
   
