@@ -19,10 +19,19 @@ app.set('view engine', 'handlebars')
 // 設定路由提供靜態檔案
 app.use(express.static('public'))
 
-// 設定伺服器路由
+// 設定index路由
 app.get('/', (req, res) =>{
   res.render('index', { movies: movieList.results })
 })
+
+// 設定show路由
+app.get('/movies/:movie_id', (req, res) => {
+  
+  const movie = movieList.results.find(movie => movie.id.toString() === req.params.movie_id)  
+  res.render('show', { movie: movie })
+})
+
+
 
 // 啟動並監聽伺服器
 app.listen(port, () =>{
